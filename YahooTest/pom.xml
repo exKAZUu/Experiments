@@ -7,12 +7,12 @@
     <version>7</version>
   </parent>
 
-  <groupId>jp.ac.waseda.wpcs</groupId>
-  <artifactId>WpcsTest</artifactId>
+  <groupId>jp.ac.waseda.yahootest</groupId>
+  <artifactId>YahooTest</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
  
-  <name>WpcsTest</name>
+  <name>YahooTest</name>
   <description>PageObjectGenerator is a testing tool to generate skeleton test code designed by the PageObject pattern for WebDriver from html template files.</description>
   <url>http://code.google.com/p/pageobjectgenerator/</url>
   <inceptionYear>2011</inceptionYear>

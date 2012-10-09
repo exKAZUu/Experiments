@@ -1,4 +1,4 @@
-package com.google.testing.pogen.pages;
+package jp.ac.waseda.yahootest.pages;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
