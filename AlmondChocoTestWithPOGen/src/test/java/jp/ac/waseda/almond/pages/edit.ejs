@@ -1,0 +1,22 @@
+<% title = 'Problem' %>
+<% copyright = "Copyright(C) 2012. Almond Choco Project(仮)" %>
+<h1 lang="__pogen_0"><%= problem.id %> - <%= problem.title %></h1>
+
+<form action="/problems/<%= problem.id %>/edit" method="post" lang="__pogen_1">
+
+  <h2>Description</h2>
+  <textarea cols="40" rows="6" wrap="off" name="description" lang="__pogen_2"><%= problem.description %></textarea>
+
+  <h2>Input</h2>
+  <textarea cols="40" rows="2" wrap="off" name="input" lang="__pogen_3"><%= problem.input %></textarea>
+
+  <h2>Output</h2>
+  <textarea cols="40" rows="2" wrap="off" name="output" lang="__pogen_4"><%= problem.output %></textarea>
+
+  <br><br>
+
+  <button type="submit">Update</button>
+
+</form>
+
+<%= copyright %>

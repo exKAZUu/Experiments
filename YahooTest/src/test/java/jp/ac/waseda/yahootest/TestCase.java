@@ -19,12 +19,14 @@ public class TestCase {
 
   @After
   public void after() {
-    driver.close();
+    // driver.close();
   }
 
   @Test
   public void test() {
     YahooTopPage page = AtFirst.goTopPage(driver);
-    page.goSearchPage("test");
+    page.goSearchPage("test")
+      .goImageSearchPage()
+      .goTopPage();
   }
 }

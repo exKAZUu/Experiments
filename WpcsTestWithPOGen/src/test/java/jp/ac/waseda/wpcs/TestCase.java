@@ -15,7 +15,7 @@ public class TestCase {
   @Before
   public void before() {
     driver = new FirefoxDriver();
-    driver.get("http://wpcs-test.heroku.com/");
+    driver.get("http://wpcs.heroku.com/");
   }
 
   @After

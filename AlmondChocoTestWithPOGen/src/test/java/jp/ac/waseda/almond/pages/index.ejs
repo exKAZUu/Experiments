@@ -1,0 +1,29 @@
+<% title = 'Hello, world' %>
+
+<% first_message = "ask your matter!" %>
+<% copyright = "Copyright(C) 2012. Almond Choco Project(仮)" %>
+
+<h2>Issued Problems</h2>
+<ul>
+  <% for(var i = 0; i < problems.length; i++) { %>
+    <li lang="__pogen_5">
+      <%= problems[i].title %>
+      <a href='/problems/<%= problems[i].id %>/solve' lang="__pogen_6">solve</a>
+      <a href='/problems/<%= problems[i].id %>/edit' lang="__pogen_7">edit</a>
+      <a href='/problems/<%= problems[i].id %>/delete' lang="__pogen_8">delete</a>
+  <% } %>
+</ul>
+
+<h2>Issue New Problem</h2>
+<form action="problems" method="post">
+  title:<br><input name=title><br>
+  description:<br><textarea name=description></textarea><br>
+  input:<br><textarea name=input></textarea><br>
+  output:<br><textarea name=output></textarea><br>
+  <button type="submit">submit</button>
+</form>
+
+<br>
+
+<%= copyright %>
+

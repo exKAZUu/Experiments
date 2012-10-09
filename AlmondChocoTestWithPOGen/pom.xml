@@ -8,11 +8,11 @@
   </parent>
 
   <groupId>jp.ac.waseda.almond</groupId>
-  <artifactId>AlmondChocoTest</artifactId>
+  <artifactId>AlmondChocoTestWithPOGen</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
  
-  <name>AlmondChocoTest</name>
+  <name>AlmondChocoTestWithPOGen</name>
   <description>PageObjectGenerator is a testing tool to generate skeleton test code designed by the PageObject pattern for WebDriver from html template files.</description>
   <url>http://code.google.com/p/pageobjectgenerator/</url>
   <inceptionYear>2011</inceptionYear>
