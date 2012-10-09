@@ -1,0 +1,77 @@
+<h1>Problem list</h1>
+
+<p lang="__pogen_5">
+<%= link_to 'Score board', contest_score_path %>
+</p>
+
+<p>
+<table class='table table-striped'>
+  <tr>
+    <th>Problem name</th>
+    <th>Input sizes</th>
+    <th>Scores</th>
+    <th>Download inputs</th>
+    <th>Solved time</th>
+    <th></th>
+    <% if @current_user && @current_user.is_admin %>
+      <th></th>
+      <th></th>
+    <% end %>
+  </tr>
+
+<% @problems.asc(:title).each do |problem| %>
+  <tr>
+    <td lang="__pogen_6"><%= link_to(problem.title, problem.content_path, target: '_blank') %></td>
+    <td>
+      Small
+      <br />
+      Large
+    </td>
+    <td>
+      <div lang="__pogen_7">
+      <%= problem.small_score %>
+      </div>
+      <div lang="__pogen_8">
+      <%= problem.large_score %>
+      </div>
+    </td>
+    <td>
+      <div lang="__pogen_9">
+      <%= link_to('Download Small', download_small_contest_problem_path(@contest, problem)) %>
+      </div>
+      <div lang="__pogen_10">
+      <%= link_to('Download Large', download_large_contest_problem_path(@contest, problem)) %>
+      </div>
+    </td>
+    <td>
+      <div>
+        <%= @score.solved_time(problem, 'small') ?
+          format_date(@score.solved_time(problem, 'small')) :
+          'Not yet (' + @score.wrong_count(problem, 'small').to_s + ' failures)' %>
+      </div>
+      <div>
+        <%= @score.solved_time(problem, 'large') ?
+          format_date(@score.solved_time(problem, 'large')) :
+          'Not yet (' + @score.wrong_count(problem, 'large').to_s + ' failures)' %>
+      </div>
+    </td>
+    <td>
+      <div lang="__pogen_11">
+      <%= link_to 'Submit Small', contest_problem_path(@contest, problem, input_type: 'small') %>
+      </div>
+      <div lang="__pogen_12">
+      <%= link_to 'Submit Large', contest_problem_path(@contest, problem, input_type: 'large') %>
+      </div>
+    </td>
+    <% if @current_user && @current_user.is_admin %>
+      <td lang="__pogen_13"><%= link_to 'Edit', edit_contest_problem_path(@contest, problem) %></td>
+      <td lang="__pogen_14"><%= link_to 'Destroy', contest_problem_path(@contest, problem), confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+</p>
+
+<% if @current_user && @current_user.is_admin %>
+  <%= link_to 'New Problem', new_contest_problem_path %>
+<% end %>

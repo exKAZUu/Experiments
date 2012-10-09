@@ -1,0 +1,32 @@
+<h2 lang="__pogen_35"><%= @contest.name %></h2>
+
+<p>
+  <b>Introduction:</b>
+</p>
+<%= @contest.introduction %>
+<br />
+
+<p>
+  <b>Problems:</b>
+</p>
+
+<table>
+  <tr>
+    <th>name</th>
+  </tr>
+
+  <% @contest.problems.each do |problem| %>
+    <tr>
+      <td lang="__pogen_36">
+        <%= link_to problem.title, contest_problem_path(@contest, problem) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+<br />
+<br />
+
+<%= link_to 'Edit', edit_contest_path(@contest) %> |
+<%= link_to 'Back', contests_path %>
