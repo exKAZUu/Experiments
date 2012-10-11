@@ -1,18 +1,18 @@
 <% title = 'Problem' %>
 <% copyright = "Copyright(C) 2012. Almond Choco Project(仮)" %>
-<h1 lang="__pogen_10"><%= problem.id %> - <%= problem.title %></h1>
+<!--POGEN,__pogen_21,problem_dot_id_,<%= problem.id %>--><!--POGEN,__pogen_21,problem_dot_title_,<%= problem.title %>--><h1 lang="__pogen_21"><%= problem.id %> - <%= problem.title %></h1>
 
 <h2>Description</h2>
-<pre lang="__pogen_11"><%= problem.description %></pre>
+<!--POGEN,__pogen_22,problem_dot_description_,<%= problem.description %>--><pre lang="__pogen_22"><%= problem.description %></pre>
 
 <h2>Input</h2>
-<pre lang="__pogen_12"><%= problem.input %></pre>
+<!--POGEN,__pogen_23,problem_dot_input_,<%= problem.input %>--><pre lang="__pogen_23"><%= problem.input %></pre>
 
 <h2>Output</h2>
-<pre lang="__pogen_13"><%= problem.output %></pre>
+<!--POGEN,__pogen_24,problem_dot_output_,<%= problem.output %>--><pre lang="__pogen_24"><%= problem.output %></pre>
 
-<form action="/problems/<%= problem.id %>/solve" method="post" lang="__pogen_14">
-  <input type="hidden" name="output" value="<%= problem.output %>" lang="__pogen_15">
+<!--POGEN,__pogen_25,problem_dot_id_,<%= problem.id %>--><form action="/problems/<%= problem.id %>/solve" method="post" lang="__pogen_25">
+  <!--POGEN,__pogen_26,problem_dot_output_,<%= problem.output %>--><input type="hidden" name="output" value="<%= problem.output %>" lang="__pogen_26">
 
   <h2>Your python code</h2>
 
@@ -82,9 +82,9 @@
     <option value="6" label="Whitespace"  title="Whitespace (wspace 0.3)" >Whitespace</option>
   </select><br>
 
-  <textarea cols="40" rows="6" wrap="off" name="code"></textarea>
+  <textarea cols="40" rows="6" wrap="off" name="code" lang="__pogen_27"></textarea>
 
-  <button type="submit">Submit</button>
+  <button type="submit" lang="__pogen_28">Submit</button>
 
 </form>
 
