@@ -76,7 +76,9 @@ public class TestCaseAnswer1 {
   @Test
   public void deleteProblem() {
     // 問題を作成
-    createNewProblem();
+    for (int i = 0; i < 100; i++) {
+      createNewProblem();
+    }
 
     // ------------ 問題数で確認(IndexPage) ------------
     // 問題数を数える

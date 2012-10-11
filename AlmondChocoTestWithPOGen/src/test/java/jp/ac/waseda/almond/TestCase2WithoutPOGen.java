@@ -24,13 +24,15 @@ public class TestCase2WithoutPOGen {
     driver.close();
   }
 
+  @SuppressWarnings("null")
   @Test
-  public void createNewProblem() {
+  public void createNewProblem() throws InterruptedException {
     // ------ 問題作成ページヘ移動 (IndexPage) ------
     // createのaタグを取得
     WebElement createElement = null;
     // 取得したタグ要素をクリック(click)
     createElement.click();
+    Thread.sleep(500);
 
     // ------ 新しい問題を作成 (NewPage) ------
     // titleのINPUTタグのを取得してから、"title"と入力(sendKeys)
@@ -43,12 +45,13 @@ public class TestCase2WithoutPOGen {
     // .sendKeys("3");
     // submitのBUTTONタグを取得してから、クリック(click)
     // .click();
+    Thread.sleep(500);
 
     // ------ 問題作成に成功したかチェック ------
   }
 
   @Test
-  public void deleteProblem() {
+  public void deleteProblem() throws InterruptedException {
     // 問題を作成
     createNewProblem();
 
@@ -61,6 +64,7 @@ public class TestCase2WithoutPOGen {
     WebElement deleteElement = deleteElements.get(deleteElements.size() - 1);
     // 取得したタグ要素をクリック
     deleteElement.click();
+    Thread.sleep(500);
     // 問題数を数える
     int newProblemCount = 0; // .size();
     // 最初と比べて問題数が1減っていることを確認する（assertEquals）
@@ -68,7 +72,7 @@ public class TestCase2WithoutPOGen {
   }
 
   @Test
-  public void solveProblemWithOK() {
+  public void solveProblemWithOK() throws InterruptedException {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
     List<WebElement> solveElements = null;
@@ -76,12 +80,14 @@ public class TestCase2WithoutPOGen {
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
+    Thread.sleep(500);
 
     // ---------------- SolvePage ----------------
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
     // .sendKeys("print 3");
     // submitのBUTTONタグを取得してから、クリック(click)
     // .click();
+    Thread.sleep(500);
 
     // ---------------- 結果の確認(assertEquals) ----------------
   }

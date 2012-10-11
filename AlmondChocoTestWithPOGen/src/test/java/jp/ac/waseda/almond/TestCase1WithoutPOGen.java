@@ -24,7 +24,7 @@ public class TestCase1WithoutPOGen {
   }
 
   @Test
-  public void editProblem() {
+  public void editProblem() throws InterruptedException {
     // ------ 問題編集ページヘ移動 (IndexPage) ------
     // 全てのeditのaタグを取得
     List<WebElement> editElements = null;
@@ -32,6 +32,7 @@ public class TestCase1WithoutPOGen {
     WebElement editElement = editElements.get(editElements.size() - 1);
     // 取得したタグ要素をクリック
     editElement.click();
+    Thread.sleep(500);
 
     // ------ 問題の編集 (EditPage) ------
     // descriptionのTEXTAREAタグを取得
@@ -46,10 +47,12 @@ public class TestCase1WithoutPOGen {
 
     // UpdateのBUTTONタグを取得してから、クリック(click)
     // .click();
+    Thread.sleep(500);
 
     // ------ トップページに戻る(LayoutPage) ------
     // トップページに戻る（layoutPageにあるロゴをclick）
     // .click();
+    Thread.sleep(500);
 
     // ------ 問題を解くページに移動 (IndexPage) ------
     // 全てのsolveのaタグを取得
@@ -58,12 +61,13 @@ public class TestCase1WithoutPOGen {
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
+    Thread.sleep(500);
 
     // ------ 内容が更新されていることを確認 ------
   }
 
   @Test
-  public void solveProblemWithOK() {
+  public void solveProblemWithOK() throws InterruptedException {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
     List<WebElement> solveElements = null;
@@ -71,18 +75,20 @@ public class TestCase1WithoutPOGen {
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
+    Thread.sleep(500);
 
     // ---------------- SolvePage ----------------
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
     // .sendKeys("print 3");
     // submitのBUTTONタグを取得してから、クリック(click)
     // .click();
+    Thread.sleep(500);
 
     // ---------------- 結果の確認(assertEquals) ----------------
   }
 
   @Test
-  public void solveProblemWithNG() {
+  public void solveProblemWithNG() throws InterruptedException {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
     List<WebElement> solveElements = null;
@@ -90,18 +96,20 @@ public class TestCase1WithoutPOGen {
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
+    Thread.sleep(500);
 
     // ---------------- SolvePage ----------------
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
     // .sendKeys("print 4");
     // submitのBUTTONタグを取得してから、クリック(click)
     // .click();
+    Thread.sleep(500);
 
     // ---------------- 結果の確認(assertEquals) ----------------
   }
 
   @Test
-  public void solveProblemWithRuby() {
+  public void solveProblemWithRuby() throws InterruptedException {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
     List<WebElement> solveElements = null;
@@ -109,6 +117,7 @@ public class TestCase1WithoutPOGen {
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
+    Thread.sleep(500);
 
     // ---------------- SolvePage ----------------
     // 言語を選ぶSELECTタグを取得
@@ -119,6 +128,7 @@ public class TestCase1WithoutPOGen {
     // .sendKeys("puts 3");
     // submitのBUTTONタグを取得してから、クリック(click)
     // .click();
+    Thread.sleep(500);
 
     // ---------------- 結果の確認(assertEquals) ----------------
   }
