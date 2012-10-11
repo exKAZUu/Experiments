@@ -1,6 +1,4 @@
-package jp.ac.waseda.wpcs;
-
-import jp.ac.waseda.wpcs.layouts.ApplicationHtmlPage;
+package jp.ac.waseda.almond;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TestCase {
+public class Sample2 {
   private FirefoxDriver driver;
 
   @Before
@@ -31,8 +29,5 @@ public class TestCase {
     nameText.sendKeys("test");
     passText.sendKeys("test");
     loginButton.submit();
-    ApplicationHtmlPage page = new ApplicationHtmlPage(driver);
-    String name = page.getTextFor_current_user_name_();
-    System.out.println(name);
   }
 }

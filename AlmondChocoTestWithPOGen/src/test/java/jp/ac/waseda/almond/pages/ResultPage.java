@@ -25,7 +25,7 @@ public class ResultPage extends AbstractPage {
   }
 
   /* ------------------- GENERATED CODE START ------------------- */
-  private static Pattern commentPattern = Pattern.compile("<!--POGEN,([^,]*),([^,]*),(.*?)-->");
+  private static Pattern commentPattern = Pattern.compile("<!--POGEN,([^,]*),([^,]*),(.*?)-->", Pattern.DOTALL);
   @FindBy(how = How.XPATH, using = "//*[@lang='__pogen_21']")
   private WebElement result_;
   @FindBy(how = How.XPATH, using = "//*[@lang='__pogen_21']")
@@ -74,5 +74,5 @@ public class ResultPage extends AbstractPage {
     }
     return null;
   }
-/* -------------------- GENERATED CODE END -------------------- */
+  /* -------------------- GENERATED CODE END -------------------- */
 }

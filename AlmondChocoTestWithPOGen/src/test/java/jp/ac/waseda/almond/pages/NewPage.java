@@ -25,7 +25,7 @@ public class NewPage extends AbstractPage {
   }
 
   /* ------------------- GENERATED CODE START ------------------- */
-  private static Pattern commentPattern = Pattern.compile("<!--POGEN,([^,]*),([^,]*),(.*?)-->");
+  private static Pattern commentPattern = Pattern.compile("<!--POGEN,([^,]*),([^,]*),(.*?)-->", Pattern.DOTALL);
   @FindBy(how = How.XPATH, using = "//*[@lang='__pogen_16']")
   private WebElement INPUT_title;
   @FindBy(how = How.XPATH, using = "//*[@lang='__pogen_17']")
@@ -56,5 +56,5 @@ public class NewPage extends AbstractPage {
   public WebElement getElementForBUTTON_submit() {
     return BUTTON_submit;
   }
-/* -------------------- GENERATED CODE END -------------------- */
+  /* -------------------- GENERATED CODE END -------------------- */
 }

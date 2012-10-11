@@ -25,7 +25,7 @@ public class EditPage extends AbstractPage {
   }
 
   /* ------------------- GENERATED CODE START ------------------- */
-  private static Pattern commentPattern = Pattern.compile("<!--POGEN,([^,]*),([^,]*),(.*?)-->");
+  private static Pattern commentPattern = Pattern.compile("<!--POGEN,([^,]*),([^,]*),(.*?)-->", Pattern.DOTALL);
   @FindBy(how = How.XPATH, using = "//*[@lang='__pogen_0']")
   private WebElement problem_dot_id_;
   @FindBy(how = How.XPATH, using = "//*[@lang='__pogen_0']")
@@ -150,5 +150,5 @@ public class EditPage extends AbstractPage {
   public String getActionAttributeForProblem_dot_id_2() {
     return problem_dot_id_2.getAttribute("action");
   }
-/* -------------------- GENERATED CODE END -------------------- */
+  /* -------------------- GENERATED CODE END -------------------- */
 }

@@ -1,4 +1,4 @@
-package jp.ac.waseda.googletest;
+package jp.ac.waseda.almond;
 
 import org.junit.After;
 import org.junit.Before;
@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TestCase {
+public class Sample3 {
   private FirefoxDriver driver;
 
   @Before

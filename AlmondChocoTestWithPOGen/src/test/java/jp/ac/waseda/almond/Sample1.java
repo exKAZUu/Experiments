@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 
-public class TestCase {
+public class Sample1 {
   private FirefoxDriver driver;
 
   @Before

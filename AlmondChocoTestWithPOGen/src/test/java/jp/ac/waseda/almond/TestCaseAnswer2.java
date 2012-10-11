@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class TestCaseAnswer2 {
   private FirefoxDriver driver;
@@ -71,6 +70,18 @@ public class TestCaseAnswer2 {
     String title = titles.get(titles.size() - 1);
     // 取得した文字列が"title"と等しいかチェック（assertEquals）
     assertEquals("title", title);
+
+    // ---------------- IndexPage ----------------
+    // 全てのsolveのaタグを取得
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
+    // 最後のsolveのaタグを取得
+    WebElement solveElement = solveElements.get(solveElements.size() - 1);
+    // 取得したタグ要素をクリック
+    solveElement.click();
+
+    assertEquals("description", solvePage.getTextForProblem_dot_description_());
+    assertEquals("input", solvePage.getTextForProblem_dot_input_());
+    assertEquals("output", solvePage.getTextForProblem_dot_output_());
   }
 
   @Test
@@ -94,59 +105,6 @@ public class TestCaseAnswer2 {
   }
 
   @Test
-  public void editProblem() {
-    createNewProblem();
-
-    // ------ 問題編集ページヘ移動 (IndexPage) ------
-    // 全てのeditのaタグを取得
-    List<WebElement> editElements = indexPage.getElementsForA_edit();
-    // 最後のeditのaタグを取得
-    WebElement editElement = editElements.get(editElements.size() - 1);
-    // 取得したタグ要素をクリック
-    editElement.click();
-
-    // ------ 問題の編集 (EditPage) ------
-    // descriptionのTEXTAREAタグを取得
-    WebElement descriptionElement = editPage.getElementForTEXTAREA_description();
-    // 中身の文字列を全て削除(clear)
-    descriptionElement.clear();
-    // DESCRIPTIONという文字列を入力(sendKeys)
-    descriptionElement.sendKeys("DESCRIPTION");
-
-    // inputのTEXTAREAタグを取得
-    WebElement inputElement = editPage.getElementForTEXTAREA_input();
-    // 中身の文字列を全て削除(clear)
-    inputElement.clear();
-    // INPUTという文字列を入力(sendKeys)
-    inputElement.sendKeys("INPUT");
-
-    // UpdateのBUTTONタグを取得してから、クリック(click)
-    editPage.getElementForBUTTON_Update().click();
-
-    // ------ トップページに戻る(LayoutPage) ------
-    // トップページに戻る（layoutPageにあるロゴをclick）
-    layoutPage.getElementForA_Almond_Choco().click();
-
-    // ------ 問題を解くページに移動 (IndexPage) ------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = indexPage.getElementsForA_solve();
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
-    // 取得したタグ要素をクリック
-    solveElement.click();
-
-    // ------ 内容が更新されていることを確認 (SolvePage) ------
-    // descriptionの文字列を取得
-    String description = solvePage.getTextForProblem_dot_description_();
-    // inputの文字列を取得
-    String input = solvePage.getTextForProblem_dot_input_();
-    // descriptionが"DESCRIPTION"になっていることを確認
-    assertEquals("DESCRIPTION", description);
-    // inputが"INPUT"になっていることを確認
-    assertEquals("INPUT", input);
-  }
-
-  @Test
   public void solveProblemWithOK() {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
@@ -165,51 +123,6 @@ public class TestCaseAnswer2 {
     // ---------------- ResultPage ----------------
     // 結果がOKになっていることを確認(assertEquals)
     assertEquals("OK", resultPage.getTextForResult_());
-  }
-
-  @Test
-  public void solveProblemWithNG() {
-    // ---------------- IndexPage ----------------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = indexPage.getElementsForA_solve();
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
-    // 取得したタグ要素をクリック
-    solveElement.click();
-
-    // ---------------- SolvePage ----------------
-    // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    solvePage.getElementForTEXTAREA_code().sendKeys("print 4");
-    // submitのBUTTONタグを取得してから、クリック(click)
-    solvePage.getElementForBUTTON_Submit().click();
-
-    // ---------------- ResultPage ----------------
-    // 結果がNGになっていることを確認(assertEquals)
-    assertEquals("NG", resultPage.getTextForResult_());
-  }
-
-  @Test
-  public void solveProblemWithRuby() {
-    // ---------------- IndexPage ----------------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = indexPage.getElementsForA_solve();
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
-    // 取得したタグ要素をクリック
-    solveElement.click();
-
-    // ---------------- SolvePage ----------------
-    // 言語を選ぶSELECTタグを取得
-    WebElement langElement = solvePage.getElementForSELECT_lang_lang();
-    // Rubyを選択
-    new Select(langElement).selectByVisibleText("Ruby");
-    // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    solvePage.getElementForTEXTAREA_code().sendKeys("puts 3");
-    // submitのBUTTONタグを取得してから、クリック(click)
-    solvePage.getElementForBUTTON_Submit().click();
-
-    // ---------------- ResultPage ----------------
-    // 結果がOKになっていることを確認(assertEquals)
-    assertEquals("OK", resultPage.getTextForResult_());
+    assertTrue(resultPage.getTextForEx_().equals(resultPage.getTextForOut_()));
   }
 }

@@ -25,7 +25,7 @@ public class LayoutPage extends AbstractPage {
   }
 
   /* ------------------- GENERATED CODE START ------------------- */
-  private static Pattern commentPattern = Pattern.compile("<!--POGEN,([^,]*),([^,]*),(.*?)-->");
+  private static Pattern commentPattern = Pattern.compile("<!--POGEN,([^,]*),([^,]*),(.*?)-->", Pattern.DOTALL);
   @FindBy(how = How.XPATH, using = "//*[@lang='__pogen_11']")
   private WebElement title_;
   @FindBy(how = How.XPATH, using = "//*[@lang='__pogen_12']")
@@ -48,5 +48,5 @@ public class LayoutPage extends AbstractPage {
   public WebElement getElementForA_Almond_Choco() {
     return A_Almond_Choco;
   }
-/* -------------------- GENERATED CODE END -------------------- */
+  /* -------------------- GENERATED CODE END -------------------- */
 }

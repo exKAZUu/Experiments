@@ -67,27 +67,6 @@ public class TestCase1WithoutPOGen {
   }
 
   @Test
-  public void solveProblemWithOK() throws InterruptedException {
-    // ---------------- IndexPage ----------------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
-    // 取得したタグ要素をクリック
-    solveElement.click();
-    Thread.sleep(500);
-
-    // ---------------- SolvePage ----------------
-    // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("print 3");
-    // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
-    Thread.sleep(500);
-
-    // ---------------- 結果の確認(assertEquals) ----------------
-  }
-
-  @Test
   public void solveProblemWithNG() throws InterruptedException {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
