@@ -79,6 +79,15 @@ public class TestCase2 {
 		button.click();
 
 		// ------ 問題作成に成功したかチェック ------
+		List<WebElement> solves = indexPage.getElementsForA_solve();
+		WebElement solve = solves.get(solves.size() - 1);
+		solve.click();
+
+		assertEquals(solvePage.getTextForProblem_dot_description_(),
+				"description");
+		assertEquals(solvePage.getTextForProblem_dot_input_(), "input");
+		assertEquals(solvePage.getTextForProblem_dot_output_(), "3");
+
 	}
 	@Test
 	public void deleteProblem() {
@@ -98,6 +107,11 @@ public class TestCase2 {
 				.get(deleteElements.size() - 1);
 		// 取得したタグ要素をクリック
 		deleteElement.click();
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
+
 		// 問題数を数える
 		int newProblemCount = 0; // .size();
 		List<WebElement> newElements = driver.findElements(By
@@ -140,5 +154,12 @@ public class TestCase2 {
 		button.click();
 
 		// ---------------- 結果の確認(assertEquals) ----------------
+		String result = resultPage.getTextForResult_();
+		String expect = resultPage.getTextForEx_();
+		String out = resultPage.getTextForOut_();
+		assertEquals(result, "OK");
+		assertEquals(expect, "3");
+		assertEquals(out, "3\n");
+
 	}
 }

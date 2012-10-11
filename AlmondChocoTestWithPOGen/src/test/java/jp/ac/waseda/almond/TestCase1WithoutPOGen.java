@@ -34,9 +34,6 @@ public class TestCase1WithoutPOGen {
 				.cssSelector("ul > li > a"));
 		// 最後のeditのaタグを取得
 		WebElement editElement = editElements.get(editElements.size() - 2);
-
-		assertEquals(editElement.getText(), "edit");
-
 		// 取得したタグ要素をクリック
 		editElement.click();
 		try {
@@ -48,20 +45,19 @@ public class TestCase1WithoutPOGen {
 		// descriptionのTEXTAREAタグを取得
 		WebElement descriptionElement = driver.findElement(By
 				.name("description"));
+		String pre = descriptionElement.getText();
+
 		// 2という文字列を追加入力(sendKeys)
 		descriptionElement.sendKeys("2");
 
 		// inputのTEXTAREAタグを取得
 		WebElement inputElement = driver.findElement(By.name("input"));
-		assertNotNull(inputElement);
 		// 2という文字列を追加入力(sendKeys)
 		inputElement.sendKeys("2");
 
 		// UpdateのBUTTONタグを取得してから、クリック(click)
 		// .click();
 		WebElement button = driver.findElement(By.cssSelector("button"));
-		assertEquals(button.getText(), "Update");
-
 		button.click();
 		try {
 			Thread.sleep(500);
@@ -71,8 +67,6 @@ public class TestCase1WithoutPOGen {
 		// トップページに戻る（layoutPageにあるロゴをclick）
 		// .click();
 		WebElement top = driver.findElement(By.cssSelector("a"));
-		assertEquals(top.getText(), "Almond Choco");
-
 		top.click();
 		try {
 			Thread.sleep(500);
@@ -85,12 +79,14 @@ public class TestCase1WithoutPOGen {
 				.cssSelector("ul > li > a"));
 		// 最後のsolveのaタグを取得
 		WebElement solveElement = solveElements.get(solveElements.size() - 3);
-		assertEquals(solveElement.getText(), "solve");
-
 		// 取得したタグ要素をクリック
 		solveElement.click();
 
 		// ------ 内容が更新されていることを確認 ------
+		List<WebElement> elements = driver.findElements(By.cssSelector("pre"));
+		WebElement descri = elements.get(0);
+		assertEquals(descri.getText(), pre + "2");
+
 	}
 
 	@Test
@@ -102,7 +98,6 @@ public class TestCase1WithoutPOGen {
 
 		// 最後のsolveのaタグを取得
 		WebElement solveElement = solveElements.get(solveElements.size() - 3);
-		assertEquals(solveElement.getText(), "solve");
 
 		// 取得したタグ要素をクリック
 		solveElement.click();
@@ -118,7 +113,6 @@ public class TestCase1WithoutPOGen {
 		code.sendKeys("print 3");
 		// submitのBUTTONタグを取得してから、クリック(click)
 		WebElement button = driver.findElement(By.cssSelector("button"));
-		assertEquals(button.getText(), "Submit");
 
 		// .click();
 		button.click();
@@ -129,7 +123,6 @@ public class TestCase1WithoutPOGen {
 		}
 		// ---------------- 結果の確認(assertEquals) ----------------
 	}
-
 	@Test
 	public void solveProblemWithNG() {
 		// ---------------- IndexPage ----------------
@@ -138,7 +131,6 @@ public class TestCase1WithoutPOGen {
 				.cssSelector("ul > li > a"));
 		// 最後のsolveのaタグを取得
 		WebElement solveElement = solveElements.get(solveElements.size() - 3);
-		assertEquals(solveElement.getText(), "solve");
 		// 取得したタグ要素をクリック
 		solveElement.click();
 
@@ -153,7 +145,6 @@ public class TestCase1WithoutPOGen {
 		code.sendKeys("print 4");
 		// submitのBUTTONタグを取得してから、クリック(click)
 		WebElement button = driver.findElement(By.cssSelector("button"));
-		assertEquals(button.getText(), "Submit");
 		// .click();
 		button.click();
 
@@ -162,6 +153,7 @@ public class TestCase1WithoutPOGen {
 		} catch (Exception e) {
 		}
 		// ------ 結果の確認(assertEquals) ----------------
+
 	}
 
 	@Test
@@ -172,7 +164,6 @@ public class TestCase1WithoutPOGen {
 				.cssSelector("ul > li > a"));
 		// 最後のsolveのaタグを取得
 		WebElement solveElement = solveElements.get(solveElements.size() - 3);
-		assertEquals(solveElement.getText(), "solve");
 		// 取得したタグ要素をクリック
 		solveElement.click();
 
@@ -193,7 +184,6 @@ public class TestCase1WithoutPOGen {
 		code.sendKeys("puts 3");
 		// submitのBUTTONタグを取得してから、クリック(click)
 		WebElement button = driver.findElement(By.cssSelector("button"));
-		assertEquals(button.getText(), "Submit");
 		// .click();
 		button.click();
 
