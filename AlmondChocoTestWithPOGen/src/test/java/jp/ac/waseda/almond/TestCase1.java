@@ -1,5 +1,7 @@
 package jp.ac.waseda.almond;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import jp.ac.waseda.almond.pages.EditPage;
@@ -10,6 +12,7 @@ import jp.ac.waseda.almond.pages.ResultPage;
 import jp.ac.waseda.almond.pages.SolvePage;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
@@ -43,112 +46,112 @@ public class TestCase1 {
   }
 
   @Test
-  public void editProblem() throws InterruptedException {
+  public void editProblem() {
     // ------ 問題編集ページヘ移動 (IndexPage) ------
     // 全てのeditのaタグを取得
-    List<WebElement> editElements = null;
+    List<WebElement> editElements = indexPage.getElementsForA_edit();
     // 最後のeditのaタグを取得
     WebElement editElement = editElements.get(editElements.size() - 1);
     // 取得したタグ要素をクリック
     editElement.click();
-    Thread.sleep(500);
 
     // ------ 問題の編集 (EditPage) ------
     // descriptionのTEXTAREAタグを取得
-    WebElement descriptionElement = null;
+    WebElement descriptionElement = editPage.getElementForTEXTAREA_description();
+
+    String originalDescription=descriptionElement.getText();
     // 2という文字列を追加入力(sendKeys)
     descriptionElement.sendKeys("2");
 
     // inputのTEXTAREAタグを取得
-    WebElement inputElement = null;
+    WebElement inputElement = editPage.getElementForTEXTAREA_input();
+    
+    String originalInput=inputElement.getText();
     // 2という文字列を追加入力(sendKeys)
     inputElement.sendKeys("2");
 
     // UpdateのBUTTONタグを取得してから、クリック(click)
-    // .click();
-    Thread.sleep(500);
+    editPage.getElementForBUTTON_Update().click();
 
     // ------ トップページに戻る(LayoutPage) ------
     // トップページに戻る（layoutPageにあるロゴをclick）
-    // .click();
-    Thread.sleep(500);
+    layoutPage.getElementForA_Almond_Choco().click();
 
     // ------ 問題を解くページに移動 (IndexPage) ------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
-    Thread.sleep(500);
 
     // ------ 内容が更新されていることを確認 ------
+    assertEquals(originalDescription+"2",solvePage.getElementForProblem_dot_description_().getText());
+    assertEquals(originalInput+"2",solvePage.getElementForProblem_dot_input_().getText());
   }
 
   @Test
-  public void solveProblemWithOK() throws InterruptedException {
+  public void solveProblemWithOK() {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
-    Thread.sleep(500);
 
     // ---------------- SolvePage ----------------
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("print 3");
+    solvePage.getElementForTEXTAREA_code().sendKeys("print 3");
     // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
-    Thread.sleep(500);
+    solvePage.getElementForBUTTON_Submit().click();
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    assertEquals("OK",resultPage.getTextForResult_());
+    assertEquals("3", resultPage.getTextForEx_());
   }
 
   @Test
-  public void solveProblemWithNG() throws InterruptedException {
+  public void solveProblemWithNG() {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
-    Thread.sleep(500);
 
     // ---------------- SolvePage ----------------
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("print 4");
+    solvePage.getElementForTEXTAREA_code().sendKeys("print 4");
     // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
-    Thread.sleep(500);
+    solvePage.getElementForBUTTON_Submit().click();
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    assertEquals("NG",resultPage.getTextForResult_());
   }
 
   @Test
-  public void solveProblemWithRuby() throws InterruptedException {
+  public void solveProblemWithRuby() {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
-    Thread.sleep(500);
 
     // ---------------- SolvePage ----------------
     // 言語を選ぶSELECTタグを取得
-    WebElement langElement = null;
+    WebElement langElement = solvePage.getElementForSELECT_lang_lang();
     // Rubyを選択
     new Select(langElement).selectByVisibleText("Ruby");
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("puts 3");
+    solvePage.getElementForTEXTAREA_code().sendKeys("puts 3");
     // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
-    Thread.sleep(500);
+    solvePage.getElementForBUTTON_Submit().click();
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    assertEquals("OK",resultPage.getTextForResult_());
   }
 }
