@@ -1,125 +1,206 @@
 package jp.ac.waseda.almond;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class TestCase1WithoutPOGen {
-  private FirefoxDriver driver;
+	private FirefoxDriver driver;
 
-  @Before
-  public void before() {
-    driver = new FirefoxDriver();
-    driver.get("http://192.168.1.32:5000/");
-  }
+	@Before
+	public void before() {
+		driver = new FirefoxDriver();
+		driver.get("http://192.168.1.32:5000/");
+	}
 
-  @After
-  public void after() {
-    driver.close();
-  }
+	@After
+	public void after() {
+		driver.close();
+	}
 
-  @Test
-  public void editProblem() {
-    // ------ 問題編集ページヘ移動 (IndexPage) ------
-    // 全てのeditのaタグを取得
-    List<WebElement> editElements = null;
-    // 最後のeditのaタグを取得
-    WebElement editElement = editElements.get(editElements.size() - 1);
-    // 取得したタグ要素をクリック
-    editElement.click();
+	@Test
+	public void editProblem() {
+		// ------ 問題編集ページヘ移動 (IndexPage) ------
+		// 全てのeditのaタグを取得
+		List<WebElement> editElements = driver.findElements(By
+				.cssSelector("ul > li > a"));
+		// 最後のeditのaタグを取得
+		WebElement editElement = editElements.get(editElements.size() - 2);
 
-    // ------ 問題の編集 (EditPage) ------
-    // descriptionのTEXTAREAタグを取得
-    WebElement descriptionElement = null;
-    // 2という文字列を追加入力(sendKeys)
-    descriptionElement.sendKeys("2");
+		assertEquals(editElement.getText(), "edit");
 
-    // inputのTEXTAREAタグを取得
-    WebElement inputElement = null;
-    // 2という文字列を追加入力(sendKeys)
-    inputElement.sendKeys("2");
+		// 取得したタグ要素をクリック
+		editElement.click();
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
 
-    // UpdateのBUTTONタグを取得してから、クリック(click)
-    // .click();
+		// ------ 問題の編集 (EditPage) ------
+		// descriptionのTEXTAREAタグを取得
+		WebElement descriptionElement = driver.findElement(By
+				.name("description"));
+		// 2という文字列を追加入力(sendKeys)
+		descriptionElement.sendKeys("2");
 
-    // ------ トップページに戻る(LayoutPage) ------
-    // トップページに戻る（layoutPageにあるロゴをclick）
-    // .click();
+		// inputのTEXTAREAタグを取得
+		WebElement inputElement = driver.findElement(By.name("input"));
+		assertNotNull(inputElement);
+		// 2という文字列を追加入力(sendKeys)
+		inputElement.sendKeys("2");
 
-    // ------ 問題を解くページに移動 (IndexPage) ------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
-    // 取得したタグ要素をクリック
-    solveElement.click();
+		// UpdateのBUTTONタグを取得してから、クリック(click)
+		// .click();
+		WebElement button = driver.findElement(By.cssSelector("button"));
+		assertEquals(button.getText(), "Update");
 
-    // ------ 内容が更新されていることを確認 ------
-  }
+		button.click();
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
+		// ------ トップページに戻る(LayoutPage) ------
+		// トップページに戻る（layoutPageにあるロゴをclick）
+		// .click();
+		WebElement top = driver.findElement(By.cssSelector("a"));
+		assertEquals(top.getText(), "Almond Choco");
 
-  @Test
-  public void solveProblemWithOK() {
-    // ---------------- IndexPage ----------------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
-    // 取得したタグ要素をクリック
-    solveElement.click();
+		top.click();
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
 
-    // ---------------- SolvePage ----------------
-    // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("print 3");
-    // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
+		// ------ 問題を解くページに移動 (IndexPage) ------
+		// 全てのsolveのaタグを取得
+		List<WebElement> solveElements = driver.findElements(By
+				.cssSelector("ul > li > a"));
+		// 最後のsolveのaタグを取得
+		WebElement solveElement = solveElements.get(solveElements.size() - 3);
+		assertEquals(solveElement.getText(), "solve");
 
-    // ---------------- 結果の確認(assertEquals) ----------------
-  }
+		// 取得したタグ要素をクリック
+		solveElement.click();
 
-  @Test
-  public void solveProblemWithNG() {
-    // ---------------- IndexPage ----------------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
-    // 取得したタグ要素をクリック
-    solveElement.click();
+		// ------ 内容が更新されていることを確認 ------
+	}
 
-    // ---------------- SolvePage ----------------
-    // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("print 4");
-    // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
+	@Test
+	public void solveProblemWithOK() {
+		// ---------------- IndexPage ----------------
+		// 全てのsolveのaタグを取得
+		List<WebElement> solveElements = driver.findElements(By
+				.cssSelector("ul > li > a"));
 
-    // ---------------- 結果の確認(assertEquals) ----------------
-  }
+		// 最後のsolveのaタグを取得
+		WebElement solveElement = solveElements.get(solveElements.size() - 3);
+		assertEquals(solveElement.getText(), "solve");
 
-  @Test
-  public void solveProblemWithRuby() {
-    // ---------------- IndexPage ----------------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
-    // 取得したタグ要素をクリック
-    solveElement.click();
+		// 取得したタグ要素をクリック
+		solveElement.click();
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
 
-    // ---------------- SolvePage ----------------
-    // 言語を選ぶSELECTタグを取得
-    WebElement langElement = null;
-    // Rubyを選択
-    new Select(langElement).selectByVisibleText("Ruby");
-    // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("puts 3");
-    // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
+		// ---------------- SolvePage ----------------
+		// codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
+		WebElement code = driver.findElement(By.name("code"));
+		// .sendKeys("print 3");
+		code.sendKeys("print 3");
+		// submitのBUTTONタグを取得してから、クリック(click)
+		WebElement button = driver.findElement(By.cssSelector("button"));
+		assertEquals(button.getText(), "Submit");
 
-    // ---------------- 結果の確認(assertEquals) ----------------
-  }
+		// .click();
+		button.click();
+
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
+		// ---------------- 結果の確認(assertEquals) ----------------
+	}
+
+	@Test
+	public void solveProblemWithNG() {
+		// ---------------- IndexPage ----------------
+		// 全てのsolveのaタグを取得
+		List<WebElement> solveElements = driver.findElements(By
+				.cssSelector("ul > li > a"));
+		// 最後のsolveのaタグを取得
+		WebElement solveElement = solveElements.get(solveElements.size() - 3);
+		assertEquals(solveElement.getText(), "solve");
+		// 取得したタグ要素をクリック
+		solveElement.click();
+
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
+		// ---------------- SolvePage ----------------
+		// codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
+		WebElement code = driver.findElement(By.name("code"));
+		// .sendKeys("print 4");
+		code.sendKeys("print 4");
+		// submitのBUTTONタグを取得してから、クリック(click)
+		WebElement button = driver.findElement(By.cssSelector("button"));
+		assertEquals(button.getText(), "Submit");
+		// .click();
+		button.click();
+
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
+		// ------ 結果の確認(assertEquals) ----------------
+	}
+
+	@Test
+	public void solveProblemWithRuby() {
+		// ---------------- IndexPage ----------------
+		// 全てのsolveのaタグを取得
+		List<WebElement> solveElements = driver.findElements(By
+				.cssSelector("ul > li > a"));
+		// 最後のsolveのaタグを取得
+		WebElement solveElement = solveElements.get(solveElements.size() - 3);
+		assertEquals(solveElement.getText(), "solve");
+		// 取得したタグ要素をクリック
+		solveElement.click();
+
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
+
+		// ---------------- SolvePage ----------------
+		// 言語を選ぶSELECTタグを取得
+		WebElement langElement = driver.findElement(By.name("lang"));
+		// Rubyを選択
+		new Select(langElement).selectByVisibleText("Ruby");
+
+		// codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
+		WebElement code = driver.findElement(By.name("code"));
+		// .sendKeys("puts 3");
+		code.sendKeys("puts 3");
+		// submitのBUTTONタグを取得してから、クリック(click)
+		WebElement button = driver.findElement(By.cssSelector("button"));
+		assertEquals(button.getText(), "Submit");
+		// .click();
+		button.click();
+
+		try {
+			Thread.sleep(500);
+		} catch (Exception e) {
+		}
+		// ---------------- 結果の確認(assertEquals) ----------------
+	}
 }
