@@ -1,5 +1,7 @@
 package jp.ac.waseda.almond;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import jp.ac.waseda.almond.pages.EditPage;
@@ -39,106 +41,164 @@ public class TestCase1 {
 
   @After
   public void after() {
-    driver.close();
+    // driver.close();
   }
 
   @Test
   public void editProblem() {
     // ------ 問題編集ページヘ移動 (IndexPage) ------
     // 全てのeditのaタグを取得
-    List<WebElement> editElements = null;
+    List<WebElement> editElements = indexPage.getElementsForA_edit();
     // 最後のeditのaタグを取得
     WebElement editElement = editElements.get(editElements.size() - 1);
     // 取得したタグ要素をクリック
     editElement.click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ------ 問題の編集 (EditPage) ------
     // descriptionのTEXTAREAタグを取得
-    WebElement descriptionElement = null;
+    WebElement descriptionElement = editPage.getElementForTEXTAREA_description();
     // 2という文字列を追加入力(sendKeys)
     descriptionElement.sendKeys("2");
 
     // inputのTEXTAREAタグを取得
-    WebElement inputElement = null;
+    WebElement inputElement = editPage.getElementForTEXTAREA_input();
     // 2という文字列を追加入力(sendKeys)
     inputElement.sendKeys("2");
 
     // UpdateのBUTTONタグを取得してから、クリック(click)
-    // .click();
+    editPage.getElementForBUTTON_Update().click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ------ トップページに戻る(LayoutPage) ------
     // トップページに戻る（layoutPageにあるロゴをclick）
-    // .click();
+    layoutPage.getElementForA_Almond_Choco().click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ------ 問題を解くページに移動 (IndexPage) ------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ------ 内容が更新されていることを確認 ------
+    assertEquals(editElements.size() + 1, solveElements.size());
+
   }
 
   @Test
   public void solveProblemWithOK() {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ---------------- SolvePage ----------------
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("print 3");
+    solvePage.getElementForTEXTAREA_code().sendKeys("print 3");
     // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
+    solvePage.getElementForBUTTON_Submit().click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    assertEquals(resultPage.getTextForResult_(), "OK");
+    assertEquals(resultPage.getTextForEx_(), resultPage.getTextForOut_());
   }
 
   @Test
   public void solveProblemWithNG() {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ---------------- SolvePage ----------------
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("print 4");
+    solvePage.getElementForTEXTAREA_code().sendKeys("print 4");
     // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
+    solvePage.getElementForBUTTON_Submit().click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    assertEquals(resultPage.getTextForResult_(), "NG");
+    assertFalse(resultPage.getTextForEx_() == resultPage.getTextForOut_());
   }
 
   @Test
   public void solveProblemWithRuby() {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ---------------- SolvePage ----------------
     // 言語を選ぶSELECTタグを取得
-    WebElement langElement = null;
+    WebElement langElement = solvePage.getElementForSELECT_lang_lang();
     // Rubyを選択
     new Select(langElement).selectByVisibleText("Ruby");
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("puts 3");
+    solvePage.getElementForTEXTAREA_code().sendKeys("puts 3");
     // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
+    solvePage.getElementForBUTTON_Submit().click();
+    try {
+      Thread.sleep(500);
+    } catch (Exception e) {
+
+    }
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    assertEquals(resultPage.getElementForResult_(), "OK");
+    assertEquals(resultPage.getElementForEx_(), resultPage.getElementForOut_());
   }
 }

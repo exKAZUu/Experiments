@@ -39,4 +39,38 @@ public class TestCase {
       es.get(0).click();
     }
   }
+
+  @Test
+  public void test2() {
+    List<WebElement> es = driver.findElements(By.cssSelector("ul > li > a"));
+    int i = 0;
+    for (WebElement e : es) {
+      if (i % 3 == 1) {
+        assertEquals(e.getText(), "edit");
+      } else if (i % 3 == 2) {
+        assertEquals(e.getText(), "delete");
+      }
+      i++;
+    }
+  }
+
+  @Test
+  public void titleTest() {
+    WebElement e = driver.findElement(By.cssSelector("h1"));
+
+    assertEquals(e.getText(), "Almond Choco");
+    e.click();
+
+    e = driver.findElement(By.cssSelector("h1"));
+    assertEquals(e.getText(), "Almond Choco");
+  }
+
+  @Test
+  public void submitTest() {
+    WebElement title = driver.findElement(By.cssSelector("input"));
+    WebElement button = driver.findElement(By.cssSelector("button"));
+
+    title.sendKeys("hoge");
+    button.click();
+  }
 }
