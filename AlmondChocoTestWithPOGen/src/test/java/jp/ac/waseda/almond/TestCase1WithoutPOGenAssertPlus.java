@@ -2,6 +2,8 @@ package jp.ac.waseda.almond;
 
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class TestCase1WithoutPOGen {
+public class TestCase1WithoutPOGenAssertPlus {
   private FirefoxDriver driver;
 
   @Before
@@ -38,12 +40,18 @@ public class TestCase1WithoutPOGen {
     // descriptionのTEXTAREAタグを取得
     WebElement descriptionElement = driver.findElement(By.name("description"));
     // 2という文字列を追加入力(sendKeys)
-    descriptionElement.sendKeys("2");
+    String oldDescText=descriptionElement.getText();
+    String addDesc="2";
+    descriptionElement.sendKeys(addDesc);
+    String newDescText=oldDescText+addDesc;
 
     // inputのTEXTAREAタグを取得
     WebElement inputElement = driver.findElement(By.name("input"));
     // 2という文字列を追加入力(sendKeys)
-    inputElement.sendKeys("2");
+    String oldInputText=inputElement.getText();
+    String addInput="2";
+    inputElement.sendKeys(addInput);
+    String newInputText=oldInputText+addInput;
 
     // UpdateのBUTTONタグを取得してから、クリック(click)
     // .click();
@@ -65,6 +73,12 @@ public class TestCase1WithoutPOGen {
     solveElement.click();
 
     // ------ 内容が更新されていることを確認 ------
+    descriptionElement = driver.findElement(By.name("description"));
+    inputElement = driver.findElement(By.name("input"));
+    System.out.println(descriptionElement.getText()+" @ "+newDescText);
+    System.out.println(inputElement.getText()+" @ "+newInputText);
+    Assert.assertEquals(descriptionElement.getText(), newDescText);
+    Assert.assertEquals(inputElement.getText(), newInputText);
   }
 
   @Test
@@ -84,9 +98,12 @@ public class TestCase1WithoutPOGen {
     // .click();
     WebElement codeElement = driver.findElement(By.name("code"));
     codeElement.sendKeys("print 3");
-    codeElement.click();
+    WebElement buttonElement = driver.findElement(By.cssSelector("button"));
+    buttonElement.click();
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    WebElement pElement = driver.findElement(By.cssSelector("p"));
+    Assert.assertEquals(pElement.getText().matches("OK"), true);
   }
 
   @Test
@@ -106,9 +123,12 @@ public class TestCase1WithoutPOGen {
     // .click();
     WebElement codeElement = driver.findElement(By.name("code"));
     codeElement.sendKeys("print 4");
-    codeElement.click();
+    WebElement buttonElement = driver.findElement(By.cssSelector("button"));
+    buttonElement.click();
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    WebElement pElement = driver.findElement(By.cssSelector("p"));
+    Assert.assertEquals(pElement.getText().matches("NG"), true);
   }
 
   @Test
@@ -132,8 +152,11 @@ public class TestCase1WithoutPOGen {
     // .click();
     WebElement codeElement = driver.findElement(By.name("code"));
     codeElement.sendKeys("puts 3");
-    codeElement.click();
+    WebElement buttonElement = driver.findElement(By.cssSelector("button"));
+    buttonElement.click();
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    WebElement pElement = driver.findElement(By.cssSelector("p"));
+    Assert.assertEquals(pElement.getText().matches("OK"), true);
   }
 }

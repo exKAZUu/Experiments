@@ -10,10 +10,12 @@ import jp.ac.waseda.almond.pages.LayoutPage;
 import jp.ac.waseda.almond.pages.NewPage;
 import jp.ac.waseda.almond.pages.ResultPage;
 import jp.ac.waseda.almond.pages.SolvePage;
+import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -46,8 +48,11 @@ public class TestCase2 {
   @Test
   public void createNewProblem() {
     // ------ 問題作成ページヘ移動 (IndexPage) ------
+
+	int oldProblemNum = indexPage.getElementsForA_delete().size();
+	  
     // createのaタグを取得
-    WebElement createElement = null;
+    WebElement createElement = indexPage.getElementForA_create();
     // 取得したタグ要素をクリック(click)
     createElement.click();
 
@@ -62,8 +67,21 @@ public class TestCase2 {
     // .sendKeys("3");
     // submitのBUTTONタグを取得してから、クリック(click)
     // .click();
-
+    newPage.getElementForINPUT_title().sendKeys("title");
+    newPage.getElementForTEXTAREA_description().sendKeys("description");
+    newPage.getElementForTEXTAREA_input().sendKeys("input");
+    newPage.getElementForTEXTAREA_output().sendKeys("3");
+    newPage.getElementForBUTTON_submit().click();
     // ------ 問題作成に成功したかチェック ------
+	int newProblemNum = indexPage.getElementsForA_delete().size();
+	assertEquals(oldProblemNum+1, newProblemNum);
+	List<WebElement> editList = indexPage.getElementsForA_edit();
+	editList.get(editList.size()-1).click();
+	assertEquals(editPage.getTextForProblem_dot_title_(), "title");
+	assertEquals(editPage.getElementForTEXTAREA_description().getText(), "description");
+	assertEquals(editPage.getElementForTEXTAREA_input().getText(), "input");
+	assertEquals(editPage.getElementForTEXTAREA_output().getText(), "3");
+	
   }
 
   @Test
@@ -73,15 +91,15 @@ public class TestCase2 {
 
     // ------------ 問題数で確認(IndexPage) ------------
     // 問題数を数える
-    int oldProblemCount = 0; // .size();
+    int oldProblemCount = indexPage.getElementsForA_delete().size(); // .size();
     // 全てのdeleteのaタグを取得
-    List<WebElement> deleteElements = null;
+    List<WebElement> deleteElements = indexPage.getElementsForA_delete();
     // 最後のdeleteのaタグを取得
     WebElement deleteElement = deleteElements.get(deleteElements.size() - 1);
     // 取得したタグ要素をクリック
     deleteElement.click();
     // 問題数を数える
-    int newProblemCount = 0; // .size();
+    int newProblemCount = indexPage.getElementsForA_delete().size(); // .size();
     // 最初と比べて問題数が1減っていることを確認する（assertEquals）
     assertEquals(oldProblemCount - 1, newProblemCount);
   }
@@ -90,7 +108,7 @@ public class TestCase2 {
   public void solveProblemWithOK() {
     // ---------------- IndexPage ----------------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
@@ -101,7 +119,11 @@ public class TestCase2 {
     // .sendKeys("print 3");
     // submitのBUTTONタグを取得してから、クリック(click)
     // .click();
+    solvePage.getElementForTEXTAREA_code().sendKeys("print 3");
+    solvePage.getElementForBUTTON_Submit().click();
 
     // ---------------- 結果の確認(assertEquals) ----------------
+    Assert.assertEquals(resultPage.getTextForResult_().matches("OK"), true);
+    
   }
 }
