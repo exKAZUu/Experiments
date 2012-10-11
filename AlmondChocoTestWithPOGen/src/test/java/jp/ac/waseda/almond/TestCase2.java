@@ -1,9 +1,6 @@
 package jp.ac.waseda.almond;
 
 import static org.junit.Assert.*;
-
-import java.util.List;
-
 import jp.ac.waseda.almond.pages.EditPage;
 import jp.ac.waseda.almond.pages.IndexPage;
 import jp.ac.waseda.almond.pages.LayoutPage;
@@ -65,7 +62,8 @@ public class TestCase2 {
     // .click();
     Thread.sleep(500);
 
-    // ------ 問題作成に成功したかチェック ------
+    // ---------------- 結果の確認(実験2でassertEqualsを使う) ----------------
+    // 正しく問題が作られていることを確認
   }
 
   @Test
@@ -76,13 +74,13 @@ public class TestCase2 {
     // ------------ 問題数で確認(IndexPage) ------------
     // 問題数を数える
     int oldProblemCount = 0; // .size();
-    // 全てのdeleteのaタグを取得
-    List<WebElement> deleteElements = null;
-    // 最後のdeleteのaタグを取得
-    WebElement deleteElement = deleteElements.get(deleteElements.size() - 1);
+
+    // 最後のdeleteのaタグを取得（全てのdeleteのaタグをとってから一番最後を取る）
+    WebElement deleteElement = null;
     // 取得したタグ要素をクリック
     deleteElement.click();
     Thread.sleep(500);
+
     // 問題数を数える
     int newProblemCount = 0; // .size();
     // 最初と比べて問題数が1減っていることを確認する（assertEquals）
@@ -92,10 +90,8 @@ public class TestCase2 {
   @Test
   public void solveProblemWithOK() throws InterruptedException {
     // ---------------- IndexPage ----------------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
+    // 最後のsolveのaタグを取得（全てのsolveのaタグをとってから一番最後を取る）
+    WebElement solveElement = null;
     // 取得したタグ要素をクリック
     solveElement.click();
     Thread.sleep(500);
@@ -107,6 +103,7 @@ public class TestCase2 {
     // .click();
     Thread.sleep(500);
 
-    // ---------------- 結果の確認(assertEquals) ----------------
+    // ---------------- 結果の確認(実験2でassertEqualsを使う) ----------------
+    // 正しく正解していることを確認
   }
 }

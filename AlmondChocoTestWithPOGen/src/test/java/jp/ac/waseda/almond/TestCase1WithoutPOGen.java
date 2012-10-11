@@ -20,16 +20,15 @@ public class TestCase1WithoutPOGen {
 
   @After
   public void after() {
+    // コメントアウトするとFirefoxが終了しなくなる
     driver.close();
   }
 
   @Test
   public void editProblem() throws InterruptedException {
     // ------ 問題編集ページヘ移動 (IndexPage) ------
-    // 全てのeditのaタグを取得
-    List<WebElement> editElements = null;
-    // 最後のeditのaタグを取得
-    WebElement editElement = editElements.get(editElements.size() - 1);
+    // 最後のeditのaタグを取得（全てのeditのaタグをとってから一番最後を取る）
+    WebElement editElement = null;
     // 取得したタグ要素をクリック
     editElement.click();
     Thread.sleep(500);
@@ -63,16 +62,15 @@ public class TestCase1WithoutPOGen {
     solveElement.click();
     Thread.sleep(500);
 
-    // ------ 内容が更新されていることを確認 ------
+    // ---------------- 結果の確認(実験2でassertEqualsを使う) ----------------
+    // 内容が正しく更新されていることを確認
   }
 
   @Test
   public void solveProblemWithNG() throws InterruptedException {
     // ---------------- IndexPage ----------------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
+    // 最後のsolveのaタグを取得（全てのsolveのaタグをとってから一番最後を取る）
+    WebElement solveElement = null;
     // 取得したタグ要素をクリック
     solveElement.click();
     Thread.sleep(500);
@@ -84,16 +82,15 @@ public class TestCase1WithoutPOGen {
     // .click();
     Thread.sleep(500);
 
-    // ---------------- 結果の確認(assertEquals) ----------------
+    // ---------------- 結果の確認(実験2でassertEqualsを使う) ----------------
+    // 正しく不正解していることを確認
   }
 
   @Test
   public void solveProblemWithRuby() throws InterruptedException {
     // ---------------- IndexPage ----------------
-    // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
-    // 最後のsolveのaタグを取得
-    WebElement solveElement = solveElements.get(solveElements.size() - 1);
+    // 最後のsolveのaタグを取得（全てのsolveのaタグをとってから一番最後を取る）
+    WebElement solveElement = null;
     // 取得したタグ要素をクリック
     solveElement.click();
     Thread.sleep(500);
@@ -109,6 +106,7 @@ public class TestCase1WithoutPOGen {
     // .click();
     Thread.sleep(500);
 
-    // ---------------- 結果の確認(assertEquals) ----------------
+    // ---------------- 結果の確認(実験2でassertEqualsを使う) ----------------
+    // 正しく正解していることを確認
   }
 }
