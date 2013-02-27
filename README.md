@@ -1,7 +1,11 @@
 Experiments
 ===========
 
-How to import this project:
+#Prerequirements
+Eclipse IDE for Java Developers (Eclipse Juno (4.2))
+http://www.eclipse.org/downloads/
+
+#How to import this project
 
 1. Run Eclipse
 2. Click Menu > File > Import > Maven > Existing Maven Projects
