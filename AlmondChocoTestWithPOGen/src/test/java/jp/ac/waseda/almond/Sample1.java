@@ -29,6 +29,8 @@ public class Sample1 {
   @Test
   public void test() {
     {
+      // <ul><li><a></a></li></ul>となっているようなaを探す。（ulの子供のliの子供のa、子孫ではない点に注意）
+      // <ul>...<p>..</p>...<li><a></a>...<div>..</div>...</li></ul>のaでもOK。
       List<WebElement> es = driver.findElements(By.cssSelector("ul > li > a"));
       int i = 0;
       for (WebElement e : es) {
