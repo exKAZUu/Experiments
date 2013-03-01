@@ -16,3 +16,5 @@ http://www.eclipse.org/downloads/
 7. Push Finish
 
 Please see jp.ac.waseda.almond.Sample{1,2,3}.java
+
+# How to do experiments
