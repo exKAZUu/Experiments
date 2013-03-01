@@ -26,8 +26,8 @@ public class Sample2 {
     WebElement nameText = driver.findElement(By.name("name"));
     WebElement passText = driver.findElement(By.name("password"));
     WebElement loginButton = driver.findElement(By.name("commit"));
-    nameText.sendKeys("test");
-    passText.sendKeys("test");
+    nameText.sendKeys("hoge");
+    passText.sendKeys("hoge");
     loginButton.submit();
   }
 }

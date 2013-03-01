@@ -23,7 +23,7 @@ public class Sample1 {
 
   @After
   public void after() {
-    // driver.close();
+     driver.close();
   }
 
   @Test
