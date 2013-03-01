@@ -1,5 +1,6 @@
 package jp.ac.waseda.almond;
 
+import static org.junit.Assert.*;
 import java.util.List;
 
 import jp.ac.waseda.almond.pages.EditPage;
@@ -41,7 +42,7 @@ public class TestCase1 {
     // 使い方の簡単な説明：
     // index.ejsの中で1つ目のcreateという名前orテキストの*要素*を取得
     // indexPage.getElementForA_create();
-    
+
     // index.ejsの中で1つ目の<%= problems[i].title %>の*文字列*を取得
     // indexPage.getTextsForProblems_i__dot_title_();
     
@@ -51,92 +52,106 @@ public class TestCase1 {
 
   @After
   public void after() {
-    driver.close(); // コメントアウトするとFirefoxが終了しなくなる
+     driver.close(); // コメントアウトするとFirefoxが終了しなくなる
   }
 
   @Test
   public void editProblem() throws InterruptedException {
     // ------ 問題編集ページヘ移動 (IndexPage) ------
     // 最後のeditのaタグを取得（全てのeditのaタグをとってから一番最後を取る）
-    WebElement editElement = null;
+    List<WebElement> t = indexPage.getElementsForA_edit();
+    WebElement editElement = t.get(t.size() - 1);
     // 取得したタグ要素をクリック
     editElement.click();
     Thread.sleep(500);
-
+    
     // ------ 問題の編集 (EditPage) ------
     // descriptionのTEXTAREAタグを取得
-    WebElement descriptionElement = null;
+    WebElement descriptionElement = editPage.getElementForTEXTAREA_description();
     // 2という文字列を追加入力(sendKeys)
     descriptionElement.sendKeys("2");
-
+    
+    String expectedDescriptionText = editPage.getTextForProblem_dot_description_();
+    
     // inputのTEXTAREAタグを取得
-    WebElement inputElement = null;
+    WebElement inputElement = editPage.getElementForTEXTAREA_input();
     // 2という文字列を追加入力(sendKeys)
     inputElement.sendKeys("2");
+    
+    String expectedInputText = editPage.getTextForProblem_dot_input_();;
 
     // UpdateのBUTTONタグを取得してから、クリック(click)
-    // .click();
+    editPage.getElementForBUTTON_Update().click();
     Thread.sleep(500);
 
     // ------ トップページに戻る(LayoutPage) ------
     // トップページに戻る（layoutPageにあるロゴをclick）
-    // .click();
+    layoutPage.getElementForA_Almond_Choco().click();
     Thread.sleep(500);
-
+    
     // ------ 問題を解くページに移動 (IndexPage) ------
     // 全てのsolveのaタグを取得
-    List<WebElement> solveElements = null;
+    List<WebElement> solveElements = indexPage.getElementsForA_solve();
     // 最後のsolveのaタグを取得
     WebElement solveElement = solveElements.get(solveElements.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
     Thread.sleep(500);
-
+    
     // ---------------- 結果の確認(次の実験で書くので記入しないで下さい) ----------------
     // 内容が正しく更新されていることを確認
+    assertEquals(expectedDescriptionText, solvePage.getTextForProblem_dot_description_());
+    assertEquals(expectedInputText, solvePage.getTextForProblem_dot_input_());
   }
 
   @Test
   public void solveProblemWithNG() throws InterruptedException {
     // ---------------- IndexPage ----------------
     // 最後のsolveのaタグを取得（全てのsolveのaタグをとってから一番最後を取る）
-    WebElement solveElement = null;
+	List<WebElement> t = indexPage.getElementsForA_solve();
+    WebElement solveElement = t.get(t.size() - 1);
     // 取得したタグ要素をクリック
     solveElement.click();
     Thread.sleep(500);
 
     // ---------------- SolvePage ----------------
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("print 4");
+    solvePage.getElementForTEXTAREA_code().sendKeys("print 3");
     // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
+    solvePage.getElementForBUTTON_Submit().click();
+    
     Thread.sleep(500);
 
     // ---------------- 結果の確認(次の実験で書くので記入しないで下さい) ----------------
     // 不正解していることなどを確認(assertEqualsを何度も使う)
+    assertEquals(resultPage.getTextForResult_(), "NG");
+    assertEquals(resultPage.getTextForOut_(), "3");
   }
 
   @Test
   public void solveProblemWithRuby() throws InterruptedException {
     // ---------------- IndexPage ----------------
     // 最後のsolveのaタグを取得（全てのsolveのaタグをとってから一番最後を取る）
-    WebElement solveElement = null;
+	List<WebElement> t = indexPage.getElementsForA_solve();
+    WebElement solveElement = t.get(t.size() - 1);
     // 取得したaタグの要素をクリック
     solveElement.click();
     Thread.sleep(500);
 
     // ---------------- SolvePage ----------------
     // 言語を選ぶSELECTタグを取得
-    WebElement langElement = null;
+    WebElement langElement = solvePage.getElementForSELECT_lang_lang();
     // Rubyを選択
     new Select(langElement).selectByVisibleText("Ruby");
     // codeのTEXTAREAタグのを取得してから、"print 3"と入力(sendKeys)
-    // .sendKeys("puts 3");
+    solvePage.getElementForTEXTAREA_code().sendKeys("puts 3");
     // submitのBUTTONタグを取得してから、クリック(click)
-    // .click();
+    solvePage.getElementForBUTTON_Submit().click();
     Thread.sleep(500);
 
     // ---------------- 結果の確認(次の実験で書くので記入しないで下さい) ----------------
     // 正解していることなどを確認(assertEqualsを何度も使う)
+    assertEquals(resultPage.getTextForResult_(), "OK");
+    assertEquals(resultPage.getTextForEx_(), resultPage.getTextForOut_());
   }
 }
